@@ -1,0 +1,1 @@
+In this folder the svg files are stored and used later.
