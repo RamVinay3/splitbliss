@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:splitbliss/screens/payment_history.dart';
 // import 'package:splitbliss/screens/add_payment.dart';
 
+import 'package:splitbliss/screens/splash.dart';
 
 void main() {
   runApp(const MyApp());
