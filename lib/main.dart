@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:splitbliss/screens/add_payment.dart';
-import 'package:splitbliss/screens/payment_history.dart';
-// import 'package:splitbliss/screens/add_payment.dart';
+import 'package:splitbliss/screens/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: PaymentHistory(),
+      home: Login(),
     );
   }
 }
