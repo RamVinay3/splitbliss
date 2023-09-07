@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 
 class InputContainer extends StatelessWidget {
-  InputContainer({required this.hint, required this.roomNameController, required this.keyboardType});
+  InputContainer(
+      {required this.hint,
+      required this.roomNameController,
+      required this.keyboardType});
 
   String hint;
   TextEditingController roomNameController;

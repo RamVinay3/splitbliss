@@ -37,6 +37,11 @@ List<String> users = [];
 class _BodyState extends State<Body> {
   String selectedOption = options[0];
   TextEditingController roomNameController = TextEditingController();
+  @override
+  void dispose() {
+    roomNameController.dispose();
+    super.dispose();
+  }
 
   void setSelectedOption(String? value) {
     setState(() {
