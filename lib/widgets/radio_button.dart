@@ -3,11 +3,17 @@
 import 'package:flutter/material.dart';
 
 class RadioButton extends StatelessWidget {
-  RadioButton({required this.value, required this.groupValue, required this.onChanged});
+  RadioButton({
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
+    this.fontSize = 16,
+  });
 
   String value;
   String groupValue;
   Function onChanged;
+  double fontSize;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +26,7 @@ class RadioButton extends StatelessWidget {
             onChanged(value);
           },
         ),
-        Text(value),
+        Text(value, style: TextStyle(fontSize: fontSize)),
       ],
     );
   }

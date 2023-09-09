@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_is_not_empty, avoid_unnecessary_containers
 
 import 'package:flutter/material.dart';
-import 'package:splitbliss/widgets/radio_button.dart';
+import 'package:splitbliss/widgets/poll_card.dart';
 import 'package:splitbliss/widgets/svg.dart';
 
 class PollTab extends StatelessWidget {
@@ -15,8 +15,6 @@ class PollTab extends StatelessWidget {
   ];
 
   String value = "";
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -41,21 +39,7 @@ class PollTab extends StatelessWidget {
       return Container(
         padding: EdgeInsets.all(20),
         child: ListView(
-          children: [
-            Material(
-              elevation: 2,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              child: Container(
-                  padding: EdgeInsets.all(15),
-                  child: Column(
-                    children: [
-                      Text("What should we cook today?"),
-                      
-                    ],
-                  )),
-            )
-          ],
+          children: [PollCard()],
         ),
       );
     }
