@@ -19,7 +19,6 @@ class _AddPollState extends State<AddPoll> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     questionController.dispose();
     option1Controller.dispose();

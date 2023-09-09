@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "720940167228",
+    "project_id": "splitbliss-623ee",
+    "storage_bucket": "splitbliss-623ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720940167228:android:2358879c489ed3a43ed339",
+        "android_client_info": {
+          "package_name": "com.example.splitbliss"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZsUMlOzd93C7z1sSwUWG5GmtXKmBS6OA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

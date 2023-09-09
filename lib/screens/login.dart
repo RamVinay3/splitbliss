@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:splitbliss/widgets/svg.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+import 'package:splitbliss/widgets/google_auth.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -15,7 +17,7 @@ class Login extends StatelessWidget {
     final double bottom = 0.053 * screenHeight;
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: SafeArea(
         child: Container(
             padding: EdgeInsets.fromLTRB(left, top, right, bottom),
@@ -75,7 +77,7 @@ class Login extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   color: Colors.white,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: Google().GoogleLogin,
                     child: Container(
                       width: 0.651 * screenWidth,
                       padding: const EdgeInsets.symmetric(
@@ -104,7 +106,7 @@ class Login extends StatelessWidget {
                   style: GoogleFonts.dmSans(
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
-                      color: Color(0xff6B7280)
+                      color: const Color(0xff6B7280)
                       // color: Color.fromARGB(255, 107, 114, 128)
                       ),
                 ),
@@ -114,7 +116,7 @@ class Login extends StatelessWidget {
                     decoration: TextDecoration.underline,
                     fontSize: 12,
                     fontWeight: FontWeight.normal,
-                    color: Color(0xff6B7280),
+                    color: const Color(0xff6B7280),
                   ),
                 )
               ],
