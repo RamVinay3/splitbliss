@@ -40,6 +40,13 @@ class _BodyState extends State<Body> {
   TextEditingController amountController = TextEditingController();
   TextEditingController paidByController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
+  @override
+  void dispose() {
+    amountController.dispose();
+    paidByController.dispose();
+    reasonController.dispose();
+    super.dispose();
+  }
 
   void setSelectedOption(String? value) {
     setState(() {

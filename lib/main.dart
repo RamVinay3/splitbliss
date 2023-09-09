@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter/material.dart';
+import 'package:splitbliss/screens/add_poll.dart';
 import 'package:splitbliss/screens/deposit_mode.dart';
 import 'package:splitbliss/screens/nodeposit_user.dart';
 import 'package:splitbliss/screens/payment_history.dart';
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DepositeMode(),
+      // home: AddPoll(),
     );
   }
 }
