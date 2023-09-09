@@ -6,9 +6,11 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   TitleBar({
     super.key,
     required this.title,
+    this.actions = const [],
   });
 
   String title;
+  List<Widget> actions;
 
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
@@ -30,6 +32,7 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
         },
       ),
       leadingWidth: 30,
+      actions: actions,
     );
   }
 }
