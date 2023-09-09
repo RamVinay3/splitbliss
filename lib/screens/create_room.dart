@@ -15,6 +15,7 @@ class CreateRoom extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: TitleBar(title: "Create Room"),
+      resizeToAvoidBottomInset: false,
       body: Body(),
     );
   }
