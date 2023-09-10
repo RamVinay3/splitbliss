@@ -9,10 +9,16 @@ import 'package:splitbliss/screens/payment_history.dart';
 import 'package:splitbliss/screens/login.dart';
 import 'package:splitbliss/screens/settings_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Supabase.initialize(
+    url: 'https://qservkhijlzeodddipbb.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzZXJ2a2hpamx6ZW9kZGRpcGJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyNDQ3ODMsImV4cCI6MjAwOTgyMDc4M30.grBOCunYY6iAZHi-gi4AyBlfhYoU2YdSCp4k2CxHgaQ',
+  );
   runApp(const MyApp());
 }
 
@@ -29,3 +35,5 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+final supabase = Supabase.instance.client;
