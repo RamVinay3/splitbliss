@@ -26,8 +26,8 @@ class HistoryProfile extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: size / 2.25,
-                fontWeight: FontWeight.w400,
-                color: Colors.black,
+                fontWeight: FontWeight.w600,
+                color: Colors.white,
               ),
             ),
           )),

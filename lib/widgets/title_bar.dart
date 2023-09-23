@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:splitbliss/colors.dart';
 
 class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   TitleBar({
@@ -18,15 +19,15 @@ class TitleBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title),
-      backgroundColor: const Color(0xFFD9D9D9),
-      titleTextStyle: const TextStyle(
-        color: Colors.black,
-        fontSize: 16,
+      backgroundColor: appColors.primary,
+      titleTextStyle: TextStyle(
+        color: appColors.onPrimary,
+        fontSize: 18,
         fontWeight: FontWeight.w500,
       ),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
-        color: Colors.black,
+        color: appColors.onPrimary,
         onPressed: () {
           Navigator.pop(context);
         },
