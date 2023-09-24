@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
-import 'package:splitbliss/dummy%20data/notify.dart';
+import 'package:splitbliss/dummy_data/notify.dart';
 import 'package:splitbliss/widgets/notification_card.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 
@@ -16,19 +16,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   bool intialToday = true;
   bool intialPrevious = true;
-  bool check(DateTime notifyDate) {
-    if (notifyDate == null || now == null) return false;
-    // print('nothing comes here');
+  bool check(DateTime notifyDate, int index) {
     var difference = now.difference(notifyDate);
-    // print(difference.inDays);
-    // print("intialToday: ${intialToday}");
-    // print("intialPrevious: ${intialPrevious}");
-    if (difference.inDays == 0 && intialToday) {
-      print('Ima in if');
-      intialToday = false;
+    if (index == 0) {
+      if (difference.inDays == 0 && intialToday) {
+        intialToday = false;
+        intialPrevious = true;
+      } else {
+        intialPrevious = false;
+      }
       return true;
-    } else if (difference.inDays > 1 && intialPrevious) {
-      print('Ima in else if');
+    }
+    print('coming here');
+    if (difference.inDays > 1 && intialPrevious) {
       intialPrevious = false;
       return true;
     } else
@@ -56,7 +56,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (check(notify[index].date))
+                      if (check(notify[index].date, index))
                         Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
                           child: TextRoboto(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
-import 'package:splitbliss/dummy%20data/room.dart';
+import 'package:splitbliss/dummy_data/room.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
 import 'package:splitbliss/widgets/vertical_space.dart';
@@ -15,7 +15,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: appColors.Surface94,
