@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/horizontal_space.dart';

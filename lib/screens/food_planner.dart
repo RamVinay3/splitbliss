@@ -41,24 +41,22 @@ class _FoodPlannerState extends State<FoodPlanner> {
                   child: Column(
                     children: [
                       for (int i = 0; i < item.body.length; i++)
-                        ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextRoboto(
-                                title: work[i],
-                                color: appColors.onPrimaryContainer,
-                                weight: FontWeight.w500,
-                              ),
-                              TextRoboto(
-                                title: item.body[i],
-                                color: appColors.onPrimaryContainer,
-                                weight: FontWeight.w500,
-                                fontsize: 16,
-                              ), // First string
-                            ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: ListTile(
+                            title: TextRoboto(
+                              title: work[i],
+                              color: appColors.onPrimaryContainer,
+                              weight: FontWeight.w500,
+                            ),
+                            trailing: TextRoboto(
+                              title: item.body[i],
+                              color: appColors.onPrimaryContainer,
+                              weight: FontWeight.w500,
+                              fontsize: 16,
+                            ),
                           ),
-                        ),
+                        )
                     ],
                   ),
                 ),

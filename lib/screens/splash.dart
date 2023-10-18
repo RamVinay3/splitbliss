@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/navigations/app_top_navigation.dart';
 import 'package:splitbliss/widgets/svg.dart';
-import 'package:splitbliss/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

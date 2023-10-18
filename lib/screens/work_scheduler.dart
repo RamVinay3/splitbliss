@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/dummy_data/work_schedule.dart';
 import 'package:splitbliss/models/work_schedule.dart';
-import 'package:splitbliss/widgets/horizontal_space.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/title_bar.dart';
 
@@ -56,7 +55,7 @@ class _WorkSchedulerState extends State<WorkScheduler> {
                                 color: appColors.onPrimaryContainer,
                                 weight: FontWeight.w500,
                                 fontsize: 16,
-                              ), // First string
+                              ),
                             ],
                           ),
                         ),
