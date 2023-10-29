@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/dummy_data/room.dart';
-import 'package:splitbliss/widgets/text_roboto.dart';
+import 'package:splitbliss/enums.dart';
+import 'package:splitbliss/screens/create_room.dart';
+import 'package:splitbliss/screens/deposit_mode.dart';
+import 'package:splitbliss/screens/nodeposit_user.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
+import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/vertical_space.dart';
 
 class Home extends StatefulWidget {
@@ -17,6 +21,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              return CreateRoom();
+            }));
+          },
+          child: Icon(Icons.add)),
       backgroundColor: appColors.Surface94,
       body: SingleChildScrollView(
         padding: EdgeInsets.only(left: 15, right: 15, top: 30, bottom: 20),
@@ -45,9 +56,23 @@ class _HomeState extends State<Home> {
                   color: appColors.onSurfaceText,
                 )),
               for (int i = 0; i < rooms.length; i++)
-                RoomCard(
-                  members: rooms[i].members,
-                  roomName: rooms[i].name,
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      if (rooms[i].room == RoomType.deposit_mode) {
+                        return DepositeMode();
+                      } else if (rooms[i].room == RoomType.no_deposit_mode) {
+                        return NoDepositeRoom();
+                      } else {
+                        return NoDepositeRoom();
+                      }
+                    }));
+                  },
+                  child: RoomCard(
+                    members: rooms[i].members,
+                    roomName: rooms[i].name,
+                  ),
                 )
             ],
           ),

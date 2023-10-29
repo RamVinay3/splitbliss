@@ -72,7 +72,12 @@ class _AddPollState extends State<AddPoll> {
             ),
             Container(
               alignment: Alignment.bottomCenter,
-              child: BottomButton(title: 'Create Poll'),
+              child: BottomButton(
+                title: 'Create Poll',
+                onPress: () {
+                  Navigator.of(context).pop();
+                },
+              ),
             )
           ],
         ),

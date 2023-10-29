@@ -15,22 +15,27 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   //that single thing will give us animation and seconds
+  late bool _isMounted;
 
   @override
   void initState() {
     super.initState();
+    _isMounted = true;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(Duration(seconds: 2), () {
-      Navigator.of(context)
-          .pushReplacement(MaterialPageRoute(builder: (context) {
-        return AppTopNavigation();
-      }));
+    Future.delayed(Duration(seconds: 3), () {
+      if (_isMounted) {
+        Navigator.of(context)
+            .pushReplacement(MaterialPageRoute(builder: (context) {
+          return AppTopNavigation();
+        }));
+      }
     });
   }
 
   @override
   void dispose() {
     super.dispose();
+    _isMounted = false;
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
   }

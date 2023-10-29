@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:splitbliss/screens/homeScreen.dart';
+import 'package:splitbliss/screens/notification_screen.dart';
+import 'package:splitbliss/screens/profile.dart';
 
 class MainTabNavigator extends StatefulWidget {
   const MainTabNavigator({super.key});
@@ -19,9 +22,12 @@ class _Tabs extends State<MainTabNavigator> {
       });
     }
 
-    Widget activePage = const Center(
-      child: Text('hi'),
-    );
+    Widget activePage = Home();
+    if (_selectedPage == 1) {
+      activePage = NotificationScreen();
+    } else if (_selectedPage == 2) {
+      activePage = Profile();
+    }
 
     return Scaffold(
       body: activePage,

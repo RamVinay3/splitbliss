@@ -4,3 +4,5 @@ enum Type {
   Requesting_Money,
   Added_Money_To_Group
 }
+
+enum RoomType { deposit_mode, no_deposit_mode }

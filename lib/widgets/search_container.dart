@@ -2,9 +2,16 @@
 
 import 'package:flutter/material.dart';
 
-class SearchContainer extends StatelessWidget {
-  const SearchContainer({super.key});
+class SearchContainer extends StatefulWidget {
+  const SearchContainer({super.key, required this.onPress,required this.searchController});
+  final void Function() onPress;
+  final TextEditingController searchController;
+  @override
+  State<SearchContainer> createState() => _SearchContainerState();
+}
 
+class _SearchContainerState extends State<SearchContainer> {
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,6 +25,7 @@ class SearchContainer extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                controller: widget.searchController,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
@@ -27,7 +35,14 @@ class SearchContainer extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed:widget.onPress,
+              //  () {
+                // widget.onPress();
+                // if (response) {
+                //   searchController.clear();
+                //   searchController = TextEditingController();
+                // }
+              // },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(
                   Colors.white,
@@ -41,10 +56,9 @@ class SearchContainer extends StatelessWidget {
               child: const Text(
                 'Add',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500
-                ),
+                    color: Colors.black,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500),
               ),
             )
           ],

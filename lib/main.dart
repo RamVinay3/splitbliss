@@ -7,7 +7,6 @@ import 'package:splitbliss/screens/add_poll.dart';
 import 'package:splitbliss/screens/deposit_mode.dart';
 import 'package:splitbliss/screens/essentials.dart';
 import 'package:splitbliss/screens/food_planner.dart';
-import 'package:splitbliss/screens/homeScreen.dart';
 import 'package:splitbliss/screens/login.dart';
 import 'package:splitbliss/screens/nodeposit_user.dart';
 import 'package:splitbliss/screens/notification_screen.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, home: DepositeMode(),
+      debugShowCheckedModeBanner: false, home: SplashScreen(),
       // home: AddPoll(),
     );
   }
