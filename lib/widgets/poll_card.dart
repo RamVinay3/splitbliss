@@ -1,79 +1,103 @@
 import 'package:flutter/material.dart';
+import 'package:splitbliss/widgets/elevated_container.dart';
 import 'package:splitbliss/widgets/radio_button.dart';
+import 'package:splitbliss/widgets/svg.dart';
+import 'package:splitbliss/widgets/text_roboto.dart';
 
 class PollCard extends StatefulWidget {
-  const PollCard({super.key});
-
+  const PollCard({
+    super.key,
+    required this.question,
+    required this.option1,
+    required this.option2,
+    required this.options,
+  });
+  final String question;
+  final List<String> options;
+  final List<String> option1;
+  final List<String> option2;
   @override
   State<PollCard> createState() => _PollCardState();
 }
 
 class _PollCardState extends State<PollCard> {
-  List<String> options = [
-    'Chicken',
-    'Mutton',
-  ];
-  String selectedOption = "";
-  @override
+  var selectedOption = '';
+  var show = false;
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 5,
-      borderRadius: BorderRadius.circular(10),
-      child: Container(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("What should we cook today?",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              SizedBox(height: 10),
-              RadioButton(
-                value: options[0],
-                groupValue: selectedOption,
-                onChanged: (value) {
+    return ElevatedContainer(
+      padding: 25,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextRoboto(
+              title: widget.question,
+              fontsize: 16,
+              weight: FontWeight.w500,
+            ),
+            InkWell(
+                onTap: () {
                   setState(() {
-                    selectedOption = value.toString();
+                    show = !show;
                   });
                 },
-              ),
-              RadioButton(
-                value: options[1],
-                groupValue: selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOption = value.toString();
-                  });
-                },
-              ),
-              Text("Option 1",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              // SizedBox(height: 10),
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Samuel"),
-                      SizedBox(height: 5),
-                      Text("Vinay"),
-                      SizedBox(height: 5),
-                      Text("Sai"),
-                    ],
-                  )),
-              Text("Option 2",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-              Container(
-                  padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Chiru"),
-                      SizedBox(height: 5),
-                      Text("Shiva"),
-                    ],
-                  ))
-            ],
-          )),
+                child: SVG(svgPath: 'lib/svg/showInfo.svg'))
+          ],
+        ),
+        SizedBox(height: 10),
+        for (var option in widget.options)
+          RadioButton(
+            value: option,
+            groupValue: selectedOption,
+            onChanged: (value) {
+              setState(() {
+                selectedOption = value;
+              });
+            },
+          ),
+        if (show && widget.option1.length != 0)
+          TextRoboto(
+            title: 'Option 1',
+            fontsize: 16,
+            weight: FontWeight.w500,
+          ),
+        if (show && widget.option1.length != 0) SizedBox(height: 10),
+        if (show && widget.option1.length != 0)
+          for (var person in widget.option1)
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: TextRoboto(
+                    title: person,
+                    fontsize: 16,
+                  ),
+                ),
+                SizedBox(height: 5),
+              ],
+            ),
+        if (show && widget.option2.length != 0)
+          TextRoboto(
+            title: 'Option 2',
+            fontsize: 16,
+            weight: FontWeight.w500,
+          ),
+        if (show && widget.option2.length != 0) SizedBox(height: 10),
+        if (show && widget.option2.length != 0)
+          for (var person in widget.option2)
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: TextRoboto(
+                    title: person,
+                    fontsize: 16,
+                  ),
+                ),
+                SizedBox(height: 5),
+              ],
+            ),
+      ],
     );
   }
 }

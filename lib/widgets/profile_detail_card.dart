@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/colors.dart';
-import 'package:splitbliss/widgets/svg.dart';
-import 'package:splitbliss/widgets/vertical_space.dart';
+import 'package:splitbliss/widgets/text_roboto.dart';
 
 class ProfileDetailsCard extends StatelessWidget {
-  const ProfileDetailsCard({super.key});
+  ProfileDetailsCard({super.key});
 
+  final List<Map<String, String>> vec = [
+    {'FirstName': 'Parijatham'},
+    {'Last Name': 'Chiranjeevi'},
+    {'Gmail': 'chiru@gmail.com'},
+    {'UserName': 'chiru@25'}
+  ];
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -17,10 +21,12 @@ class ProfileDetailsCard extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-            SimpleTile(parameter: 'First Name', value: 'Parijatham'),
-            SimpleTile(parameter: 'Last Name', value: 'Chiranjeevi'),
-            SimpleTile(parameter: 'Gmail', value: 'chiru@gmail.com'),
-            SimpleTile(parameter: 'User Name', value: 'chiru@25 '),
+            for (var map in vec)
+              for (var entry in map.entries)
+                SimpleTile(parameter: entry.key, value: entry.value),
+            // SimpleTile(parameter: 'Last Name', value: 'Chiranjeevi'),
+            // SimpleTile(parameter: 'Gmail', value: 'chiru@gmail.com'),
+            // SimpleTile(parameter: 'User Name', value: 'chiru@25 '),
           ],
         ),
       ),

@@ -36,6 +36,18 @@ class AppColors {
   Color get greyPlaceHolder {
     return Color(0xffACA8A8);
   }
+
+  Color get loss {
+    return Color(0xffFE0000);
+  }
+
+  Color get profit {
+    return Color(0xff149A0A);
+  }
+
+  Color get skyblue {
+    return Color(0xffC2E7FF);
+  }
 }
 
 final appColors = AppColors();

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/profile_detail_card.dart';
 import 'package:splitbliss/widgets/profile_options.dart';
-import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/vertical_space.dart';
 
 class Profile extends StatelessWidget {
@@ -18,7 +18,7 @@ class Profile extends StatelessWidget {
     final double top = 0.035 * screenHeight;
     final double bottom = 0.053 * screenHeight;
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: appColors.Surface94,
       body: SafeArea(
         child: Center(
           child: Container(

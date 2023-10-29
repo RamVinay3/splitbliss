@@ -1,21 +1,21 @@
 // ignore_for_file: unused_import
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/navigations/app_top_navigation.dart';
 import 'package:splitbliss/screens/add_poll.dart';
 import 'package:splitbliss/screens/deposit_mode.dart';
 import 'package:splitbliss/screens/essentials.dart';
 import 'package:splitbliss/screens/food_planner.dart';
-import 'package:splitbliss/screens/profile.dart';
-import 'package:splitbliss/screens/work_scheduler.dart';
 import 'package:splitbliss/screens/homeScreen.dart';
+import 'package:splitbliss/screens/login.dart';
 import 'package:splitbliss/screens/nodeposit_user.dart';
 import 'package:splitbliss/screens/notification_screen.dart';
 import 'package:splitbliss/screens/payment_history.dart';
-import 'package:splitbliss/screens/login.dart';
+import 'package:splitbliss/screens/profile.dart';
 import 'package:splitbliss/screens/settings_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:splitbliss/screens/splash.dart';
+import 'package:splitbliss/screens/work_scheduler.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, home: Profile(),
+      debugShowCheckedModeBanner: false, home: DepositeMode(),
       // home: AddPoll(),
     );
   }

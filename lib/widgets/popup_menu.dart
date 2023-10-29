@@ -12,10 +12,11 @@ class PopupMenu extends StatelessWidget {
     return PopupMenuButton(
       position: PopupMenuPosition.values[1],
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      icon: SVG(svgPath: "lib/svg/threeDotsIcon.svg"),
+      icon: SVG(svgPath: "lib/svg/threeDotsWhite.svg"),
       itemBuilder: (context) => [
         PopupMenuItem(
-          child: MenuItem(path: "lib/svg/addPaymentIcon.svg", title: "Add Payments"),
+          child: MenuItem(
+              path: "lib/svg/addPaymentIcon.svg", title: "Add Payments"),
           value: 1,
         ),
         PopupMenuItem(
@@ -23,7 +24,8 @@ class PopupMenu extends StatelessWidget {
           value: 2,
         ),
         PopupMenuItem(
-          child: MenuItem(path: "lib/svg/remainderIcon.svg", title: "Remainder"),
+          child:
+              MenuItem(path: "lib/svg/remainderIcon.svg", title: "Remainder"),
           value: 3,
         ),
         PopupMenuItem(
