@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/widgets/svg.dart';
-import 'package:splitbliss/widgets/vertical_space.dart';
+import 'package:splitbliss/widgets/text_roboto.dart';
 
 class ProfileOptions extends StatelessWidget {
   const ProfileOptions({super.key});

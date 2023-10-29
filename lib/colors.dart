@@ -48,6 +48,10 @@ class AppColors {
   Color get skyblue {
     return Color(0xffC2E7FF);
   }
+
+  Color get paymentRed {
+    return Color(0xffF9DEDC);
+  }
 }
 
 final appColors = AppColors();
