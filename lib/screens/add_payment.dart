@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:random_color/random_color.dart';
+import 'package:splitbliss/screens/payment_history.dart';
 import 'package:splitbliss/widgets/radio_button.dart';
-import 'package:splitbliss/widgets/user_card.dart';
+import 'package:splitbliss/widgets/text_inter.dart';
 
+import '../colors.dart';
 import '../widgets/bottom_button.dart';
 import '../widgets/input_container.dart';
-import '../widgets/search_container.dart';
 import '../widgets/title_bar.dart';
 
 class AddPayment extends StatelessWidget {
@@ -15,6 +17,7 @@ class AddPayment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: appColors.Surface94,
       resizeToAvoidBottomInset: false,
       appBar: TitleBar(title: "Add Payment"),
       body: Body(),
@@ -37,11 +40,19 @@ List<String> options = [
 List<String> users = [];
 
 class _BodyState extends State<Body> {
+  List<Map<String, dynamic>> members = [];
+  List<String> persons = [
+    "vinay3",
+    "chiru",
+    "siva23",
+    "samuel12",
+    "nagasai234"
+  ];
+  List<String> inPayment = [];
   String selectedOption = options[0];
   TextEditingController amountController = TextEditingController();
   TextEditingController paidByController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
-  TextEditingController searchController = TextEditingController();
   @override
   void dispose() {
     amountController.dispose();
@@ -50,10 +61,40 @@ class _BodyState extends State<Body> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    for (int i = 0; i < 5; i++) {
+      RandomColor _randomColor = RandomColor();
+      Color backgroundColor = _randomColor.randomColor(
+        colorBrightness: ColorBrightness.dark,
+      );
+      members
+          .add({'name': persons[i], 'color': backgroundColor.withAlpha(200)});
+    }
+  }
+
   void setSelectedOption(String? value) {
+    if (value == options[1]) {
+      inPayment = [...persons];
+    }
     setState(() {
       selectedOption = value.toString();
     });
+  }
+
+  void toggle(String value) {
+    if (inPayment.contains(value)) {
+      setState(() {
+        inPayment.remove(value);
+      });
+    } else {
+      setState(() {
+        inPayment.add(value);
+      });
+    }
   }
 
   @override
@@ -95,29 +136,66 @@ class _BodyState extends State<Body> {
                 ],
               ),
               SizedBox(height: 20),
-              SearchContainer(
-                  onPress: () {}, searchController: searchController),
-              SizedBox(height: 20),
-              Wrap(
-                spacing: 5,
-                runSpacing: 10,
-                children: [
-                  UserCard(
-                    user: "@Vinay3",
-                    color: Color.fromARGB(255, 215, 140, 239),
-                    onPress: (String value) {},
-                  ),
-                ],
-              )
+              if (selectedOption == options[0])
+                Wrap(
+                  spacing: 5,
+                  runSpacing: 10,
+                  children: [
+                    for (var person in members)
+                      ToggleMembers(
+                          user: person['name'],
+                          color: person['color'],
+                          onTap: toggle,
+                          has: inPayment.contains(person['name']))
+                  ],
+                )
             ],
           ),
           BottomButton(
+            color: appColors.primary,
             title: "Add Payment",
             onPress: () {
-              Navigator.of(context).pop();
+              Navigator.of(context)
+                  .pushReplacement(MaterialPageRoute(builder: (context) {
+                return PaymentHistory();
+              }));
             },
           )
         ],
+      ),
+    );
+  }
+}
+
+class ToggleMembers extends StatelessWidget {
+  const ToggleMembers(
+      {super.key,
+      required this.color,
+      required this.user,
+      required this.onTap,
+      required this.has});
+  final Color color;
+  final String user;
+  final bool has;
+  final void Function(String value) onTap;
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return InkWell(
+      onTap: () {
+        onTap(user);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: color),
+          color: (has) ? color : appColors.Surface94,
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: TextInter(
+          title: user,
+          fontsize: 14,
+        ),
       ),
     );
   }

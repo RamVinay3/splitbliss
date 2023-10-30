@@ -28,7 +28,7 @@ class BottomButton extends StatelessWidget {
           title: title,
           color: Colors.white,
           weight: FontWeight.w500,
-          fontsize: 24,
+          fontsize: 22,
         ));
   }
 }

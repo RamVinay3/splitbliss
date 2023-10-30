@@ -7,6 +7,8 @@ import 'package:splitbliss/widgets/popup_menu.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/title_bar.dart';
 
+import './add_payment.dart';
+
 class DepositeMode extends StatelessWidget {
   const DepositeMode({super.key});
 
@@ -24,6 +26,9 @@ class DepositeMode extends StatelessWidget {
         child: Icon(Icons.add, color: appColors.primary, size: 40),
         onPressed: () {
           print("Add Payment");
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+            return AddPayment();
+          }));
         },
       ),
     );
