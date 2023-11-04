@@ -11,47 +11,49 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-    final double left = 0.051 * screenWidth;
-    final double right = 0.051 * screenWidth;
-    final double top = 0.035 * screenHeight;
-    final double bottom = 0.053 * screenHeight;
+    // final double screenWidth = MediaQuery.of(context).size.width;
+    // final double screenHeight = MediaQuery.of(context).size.height;
+    // final double left = 0.051 * screenWidth;
+    // final double right = 0.051 * screenWidth;
+    // final double top = 0.035 * screenHeight;
+    // final double bottom = 0.053 * screenHeight;
     return Scaffold(
       backgroundColor: appColors.Surface94,
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                VerticalSpacer(space: 67),
-                HistoryProfile(
-                  title: 'CV',
-                  size: 120,
-                ),
-                VerticalSpacer(space: 20),
-                Text(
-                  'Parijatham Chiranjeevi',
-                  style: GoogleFonts.nunito(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  VerticalSpacer(space: 67),
+                  HistoryProfile(
+                    title: 'CV',
+                    size: 120,
                   ),
-                ),
-                Text(
-                  'chiru@25',
-                  style: GoogleFonts.nunito(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black,
+                  VerticalSpacer(space: 20),
+                  Text(
+                    'Parijatham Chiranjeevi',
+                    style: GoogleFonts.nunito(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                ProfileDetailsCard(),
-                VerticalSpacer(space: 20),
-                ProfileOptions(),
-              ],
+                  Text(
+                    'chiru@25',
+                    style: GoogleFonts.nunito(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                    ),
+                  ),
+                  ProfileDetailsCard(),
+                  VerticalSpacer(space: 20),
+                  ProfileOptions(),
+                ],
+              ),
             ),
           ),
         ),

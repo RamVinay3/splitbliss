@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
+import 'package:splitbliss/screens/add_poll.dart';
 import 'package:splitbliss/widgets/deposit_member_tab.dart';
 import 'package:splitbliss/widgets/elevated_container.dart';
 import 'package:splitbliss/widgets/poll_tab.dart';
@@ -9,8 +10,31 @@ import 'package:splitbliss/widgets/title_bar.dart';
 
 import './add_payment.dart';
 
-class DepositeMode extends StatelessWidget {
+class DepositeMode extends StatefulWidget {
   const DepositeMode({super.key});
+
+  @override
+  State<DepositeMode> createState() => _DepositeModeState();
+}
+
+class _DepositeModeState extends State<DepositeMode>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _tabController.dispose();
+  }
+
+  void toggleFloatFunctionality() {}
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +44,25 @@ class DepositeMode extends StatelessWidget {
         title: "Gear Five",
         actions: [PopupMenu()],
       ),
-      body: Body(),
+      body: UI(context),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
         child: Icon(Icons.add, color: appColors.primary, size: 40),
         onPressed: () {
           print("Add Payment");
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return AddPayment();
+            if (_tabController.index == 0) {
+              return AddPayment();
+            } else {
+              return AddPoll();
+            }
           }));
         },
       ),
     );
   }
-}
 
-class Body extends StatefulWidget {
-  const Body({super.key});
-
-  @override
-  State<Body> createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-  @override
-  Widget build(BuildContext context) {
+  Column UI(BuildContext context) {
     return Column(
       children: [
         ElevatedContainer(
@@ -81,6 +99,7 @@ class _BodyState extends State<Body> {
                 Container(
                   color: appColors.skyblue,
                   child: TabBar(
+                    controller: _tabController,
                     indicatorColor: appColors.primary,
                     unselectedLabelColor: Colors.black.withOpacity(0.8),
                     labelColor: Colors.black,

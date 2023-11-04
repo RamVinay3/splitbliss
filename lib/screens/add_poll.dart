@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/widgets/ask_text.dart';
 import 'package:splitbliss/widgets/bottom_button.dart';
 import 'package:splitbliss/widgets/input_container.dart';
@@ -73,6 +74,7 @@ class _AddPollState extends State<AddPoll> {
             Container(
               alignment: Alignment.bottomCenter,
               child: BottomButton(
+                color: appColors.primary,
                 title: 'Create Poll',
                 onPress: () {
                   Navigator.of(context).pop();

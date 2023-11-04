@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
+import 'package:splitbliss/screens/add_payment.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/horizontal_space.dart';
 import 'package:splitbliss/widgets/svg.dart';
@@ -38,7 +39,15 @@ class RoomCard extends StatelessWidget {
               if (personal)
                 Personal(name: 'Ramvinay3', username: 'ramvinay609'),
               if (!personal) Group(name: roomName!, members: members!),
-              if (!personal) SVG(svgPath: 'lib/svg/addTransaction.svg')
+              if (!personal)
+                InkWell(
+                    onTap: () {
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return AddPayment();
+                      }));
+                    },
+                    child: SVG(svgPath: 'lib/svg/addTransaction.svg'))
             ],
           ),
         ),
