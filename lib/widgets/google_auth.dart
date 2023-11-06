@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class Google {
   final googleSignIn = GoogleSignIn();
+
   GoogleSignInAccount? user;
 
   GoogleSignInAccount get userInfo => user!;
@@ -16,6 +17,7 @@ class Google {
       accessToken: googleAuth.accessToken,
       idToken: googleAuth.idToken,
     );
+
     await FirebaseAuth.instance.signInWithCredential(credential);
   }
 

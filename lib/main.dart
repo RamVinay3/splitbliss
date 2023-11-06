@@ -2,6 +2,8 @@
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:splitbliss/navigations/app_top_navigation.dart';
 import 'package:splitbliss/screens/add_poll.dart';
 import 'package:splitbliss/screens/deposit_mode.dart';
@@ -20,12 +22,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  await Supabase.initialize(
-    url: 'https://qservkhijlzeodddipbb.supabase.co',
-    anonKey:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzZXJ2a2hpamx6ZW9kZGRpcGJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyNDQ3ODMsImV4cCI6MjAwOTgyMDc4M30.grBOCunYY6iAZHi-gi4AyBlfhYoU2YdSCp4k2CxHgaQ',
-  );
-  runApp(const MyApp());
+  // await Supabase.initialize(
+  //   url: 'https://qservkhijlzeodddipbb.supabase.co',
+  //   anonKey:
+  //       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFzZXJ2a2hpamx6ZW9kZGRpcGJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTQyNDQ3ODMsImV4cCI6MjAwOTgyMDc4M30.grBOCunYY6iAZHi-gi4AyBlfhYoU2YdSCp4k2CxHgaQ',
+  // );
+  runApp(ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -35,8 +37,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, home: SplashScreen(),
-      // home: AddPoll(),
+      debugShowCheckedModeBanner: false,
+      home: SplashScreen(),
     );
   }
 }

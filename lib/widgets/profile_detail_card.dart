@@ -1,16 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
+import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 
-class ProfileDetailsCard extends StatelessWidget {
-  ProfileDetailsCard({super.key});
+class ProfileDetailsCard extends StatefulWidget {
+  ProfileDetailsCard({super.key, required this.userName});
+  final String userName;
 
-  final List<Map<String, String>> vec = [
-    {'FirstName': 'Parijatham'},
-    {'Last Name': 'Chiranjeevi'},
-    {'Gmail': 'chiru@gmail.com'},
-    {'UserName': 'chiru@25'}
-  ];
+  @override
+  State<ProfileDetailsCard> createState() => _ProfileDetailsCardState();
+}
+
+class _ProfileDetailsCardState extends State<ProfileDetailsCard> {
+  late List<Map<String, String>> vec;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    vec = [
+      {'FirstName': firstName},
+      {'Last Name': secondName},
+      {'Gmail': email!},
+      {'UserName': widget.userName}
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -41,7 +56,6 @@ class SimpleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListTile(
       title: TextRoboto(
         title: parameter,
@@ -52,7 +66,7 @@ class SimpleTile extends StatelessWidget {
       trailing: TextRoboto(
         title: value,
         color: appColors.onPrimaryContainer,
-        weight: FontWeight.w500,
+        weight: FontWeight.w400,
         fontsize: 16,
       ),
     );

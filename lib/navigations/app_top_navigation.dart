@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/navigations/main_tab.dart';
 import 'package:splitbliss/screens/login.dart';
 import 'package:splitbliss/screens/splash.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class AppTopNavigation extends StatelessWidget {
   AppTopNavigation({super.key});
