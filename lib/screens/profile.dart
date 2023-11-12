@@ -21,37 +21,41 @@ class _ProfileState extends State<Profile> {
   List<String> parts = currentUser!.displayName!.split(' ');
 
   void getUserInfo() {
-    print("userinfo is getting fetched");
+    // print("userinfo is getting fetched");
     try {
       FirebaseFirestore.instance
           .collection('userDetails')
           .doc(currentUser!.uid)
           .get()
           .then((value) {
-        setState(() {
-          userSnap = value;
-        });
+        if (mounted) {
+          setState(() {
+            userSnap = value;
+          });
+        }
       });
     } catch (error) {
       print(error);
     }
-    print("userinfo is done");
+    // print("userinfo is done");
   }
 
   @override
   void initState() {
-    print("started intialising");
+    // print("started intialising");
     super.initState();
     getUserInfo();
-    print("ended intialising");
+    // print("ended intialising");
   }
 
   @override
   Widget build(BuildContext context) {
-    print("entered build");
+    // print("entered build");
     if (userSnap == null) {
-      return CircularProgressIndicator(
-        color: appColors.primary,
+      return Center(
+        child: CircularProgressIndicator(
+          color: appColors.primary,
+        ),
       );
     }
     return Scaffold(

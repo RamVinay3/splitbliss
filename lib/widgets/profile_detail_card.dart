@@ -16,7 +16,6 @@ class _ProfileDetailsCardState extends State<ProfileDetailsCard> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     vec = [
       {'FirstName': firstName},

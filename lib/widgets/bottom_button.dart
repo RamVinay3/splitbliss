@@ -14,21 +14,24 @@ class BottomButton extends StatelessWidget {
     if (color == null) {
       color = Color(0xFFD9D9D9);
     }
-    return ElevatedButton(
-        // bottom button
-        onPressed: onPress,
-        style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            )),
-            backgroundColor: MaterialStateProperty.all(color)),
-        child: TextInter(
-          title: title,
-          color: Colors.white,
-          weight: FontWeight.w500,
-          fontsize: 22,
-        ));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30.0),
+      child: ElevatedButton(
+          // bottom button
+          onPressed: onPress,
+          style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              )),
+              backgroundColor: MaterialStateProperty.all(color)),
+          child: TextInter(
+            title: title,
+            color: Colors.white,
+            weight: FontWeight.w500,
+            fontsize: 22,
+          )),
+    );
   }
 }

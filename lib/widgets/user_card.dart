@@ -25,6 +25,7 @@ class UserCard extends StatelessWidget {
             TextInter(
               title: user,
               fontsize: 14,
+              weight: FontWeight.w500,
             ),
             SizedBox(
               width: 5,

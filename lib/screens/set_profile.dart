@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:random_color/random_color.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
@@ -20,13 +19,10 @@ class _SetProfileState extends State<SetProfile> {
   final currentUser = FirebaseAuth.instance.currentUser;
   Color backgroundColor = Colors.black;
   final _formKey = GlobalKey<FormState>();
-  RandomColor _randomColor = RandomColor();
   var username = '';
   void changeColor() {
     setState(() {
-      backgroundColor = _randomColor.randomColor(
-        colorBrightness: ColorBrightness.light,
-      );
+      backgroundColor = getBackGroundColor();
     });
     // return backgroundColor;
   }

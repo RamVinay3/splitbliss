@@ -63,7 +63,6 @@ class _BodyState extends State<Body> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     for (int i = 0; i < 5; i++) {
@@ -180,7 +179,6 @@ class ToggleMembers extends StatelessWidget {
   final void Function(String value) onTap;
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return InkWell(
       onTap: () {
         onTap(user);
