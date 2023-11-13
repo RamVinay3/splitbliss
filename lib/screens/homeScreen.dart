@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/screens/create_room.dart';
-import 'package:splitbliss/screens/stream_rooms.dart';
+import 'package:splitbliss/streams/stream_rooms.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 import 'package:splitbliss/widgets/vertical_space.dart';

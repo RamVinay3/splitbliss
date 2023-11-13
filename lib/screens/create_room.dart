@@ -42,12 +42,16 @@ class _BodyState extends State<Body> {
   List<Map<String, dynamic>> users = [];
   String selectedOption = options[0];
   TextEditingController roomNameController = TextEditingController();
+
   TextEditingController searchController = TextEditingController();
+  TextEditingController moneyController = TextEditingController();
   bool creatingRoom = false;
+
   bool isKeyboardVisible = false;
   @override
   void dispose() {
     roomNameController.dispose();
+    moneyController.dispose();
     super.dispose();
     searchController.dispose();
     if (isKeyboardVisible) {
@@ -69,13 +73,30 @@ class _BodyState extends State<Body> {
   }
 
   void makeRoom() async {
+    //checks if room title is empty
+    if (roomNameController.text.trim().isEmpty) {
+      FocusScope.of(context).unfocus();
+      Message(context, message: "add a name to your room");
+    }
+    //check if atleast one user is added
     if (users.length < 1) {
       Message(context, message: 'Add atleast One Member');
       return;
     }
-    if (roomNameController.text.isEmpty) {
+    //get money from here.
+    String money = moneyController.text.trim();
+
+    if (selectedOption == 'Deposite Mode' && money.isEmpty) {
       FocusScope.of(context).unfocus();
-      Message(context, message: "add a name to your room");
+      Message(context, message: "Add Individual Money to Contribute at intial");
+    }
+
+    bool digit = money
+        .split('')
+        .every((char) => char.codeUnitAt(0) >= 48 && char.codeUnitAt(0) <= 57);
+    if (selectedOption == 'Deposite Mode' && !digit) {
+      FocusScope.of(context).unfocus();
+      Message(context, message: "Individual Money must be a number");
     }
     setState(() {
       creatingRoom = true;
@@ -84,22 +105,22 @@ class _BodyState extends State<Body> {
     users.add({
       'memberName': userName,
       'color': userColor.toString(),
-      'spents': 0,
-      'debts': 0,
+      'balance': 0,
+      'getMoney': 0,
       'email': email,
       'memberId': uid
     });
     //create roomId
     var roomId = uuid.v4();
     final Color backgroundColor = getBackGroundColor();
-    FirebaseFirestore.instance.collection('rooms').doc(roomId).set({
+    Map<String, dynamic> obj = {
       'roomTitle': roomNameController.text.trim(),
       'roomId': roomId,
       'admin': userName,
       'members': users,
-      'balance': 0,
+      // 'balance': 0,
       'spents': 0,
-      'totalMoney': 0,
+      // 'totalMoney': 0,
       'typeOfMode': (selectedOption == 'Deposite Mode')
           ? RoomType.deposit_mode.name
           : RoomType.no_deposit_mode.name,
@@ -107,7 +128,11 @@ class _BodyState extends State<Body> {
       'transactions': [],
       'remainders': [],
       'polls': [],
-    });
+    };
+    if (selectedOption == 'Deposite Mode') {
+      obj['individualMoney'] = moneyController.text;
+    }
+    FirebaseFirestore.instance.collection('rooms').doc(roomId).set(obj);
     //add group into every member.
 
     for (var user in users) {
@@ -158,8 +183,8 @@ class _BodyState extends State<Body> {
       users.add({
         'memberName': value,
         'color': userData!['color'],
-        'spents': 0,
-        'debts': 0,
+        'balance': 0,
+        'getMoney': 0,
         'email': userData['email'],
         'memberId': userData['userId']
       });
@@ -205,6 +230,12 @@ class _BodyState extends State<Body> {
                       onChanged: setSelectedOption),
                 ],
               ),
+              SizedBox(height: 20),
+              if (selectedOption == 'Deposite Mode')
+                InputContainer(
+                    hint: 'Individual Money',
+                    keyboardType: TextInputType.number,
+                    roomNameController: moneyController),
               SizedBox(height: 20),
               SearchContainer(
                   onPress: addUsers, searchController: searchController),

@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/enums.dart';
+import 'package:splitbliss/streams/stream_deposit.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
 
-import 'deposit_mode.dart';
-import 'nodeposit_user.dart';
+import '../screens/nodeposit_user.dart';
 
 class StreamRoom extends StatefulWidget {
   const StreamRoom({super.key});
@@ -72,12 +72,12 @@ class _StreamRoomState extends State<StreamRoom> {
                     Navigator.of(context)
                         .push(MaterialPageRoute(builder: (context) {
                       if (data['typeOfMode'] == RoomType.deposit_mode.name) {
-                        return DepositeMode();
+                        return StreamDeposite(roomId: rooms[index]);
                       } else if (data['typeOfMode'] ==
                           RoomType.no_deposit_mode.name) {
                         return NoDepositeRoom();
                       } else {
-                        return NoDepositeRoom();
+                        return StreamRoom();
                       }
                     }));
                   },

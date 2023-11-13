@@ -11,7 +11,10 @@ import 'package:splitbliss/widgets/title_bar.dart';
 import './add_payment.dart';
 
 class DepositeMode extends StatefulWidget {
-  const DepositeMode({super.key});
+  const DepositeMode(
+      {super.key, required this.roomInfo, required this.totalMoney});
+  final Map<String, dynamic> roomInfo;
+  final int totalMoney;
 
   @override
   State<DepositeMode> createState() => _DepositeModeState();
@@ -40,7 +43,7 @@ class _DepositeModeState extends State<DepositeMode>
     return Scaffold(
       backgroundColor: appColors.Surface94,
       appBar: TitleBar(
-        title: "Gear Five",
+        title: widget.roomInfo["roomTitle"],
         actions: [PopupMenu()],
       ),
       body: UI(context),
@@ -48,7 +51,6 @@ class _DepositeModeState extends State<DepositeMode>
         backgroundColor: Colors.white,
         child: Icon(Icons.add, color: appColors.primary, size: 40),
         onPressed: () {
-          print("Add Payment");
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             if (_tabController.index == 0) {
               return AddPayment();
@@ -68,22 +70,22 @@ class _DepositeModeState extends State<DepositeMode>
           children: [
             SimpleTile(
               parameter: 'Total Money',
-              value: '10000',
+              value: widget.totalMoney.toString(),
               color: appColors.onPrimaryContainer,
             ),
             SimpleTile(
               parameter: 'Balance',
-              value: '7000',
+              value: '${widget.totalMoney - widget.roomInfo['spents']}',
               color: appColors.territiary,
             ),
             SimpleTile(
               parameter: 'Spents',
-              value: '3000',
+              value: widget.roomInfo['spents'].toString(),
               color: appColors.loss,
             ),
             SimpleTile(
               parameter: 'Individual Money',
-              value: '1000',
+              value: widget.roomInfo['individualMoney'].toString(),
               color: appColors.profit,
             )
           ],
@@ -119,7 +121,7 @@ class _DepositeModeState extends State<DepositeMode>
                 ),
                 Expanded(
                   child: TabBarView(children: [
-                    MemberTab(),
+                    MemberTab(room: widget.roomInfo),
                     PollTab(),
                   ]),
                 )
