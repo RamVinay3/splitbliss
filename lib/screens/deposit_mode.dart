@@ -36,7 +36,7 @@ class _DepositeModeState extends State<DepositeMode>
     _tabController.dispose();
   }
 
-  void toggleFloatFunctionality() {}
+  // void toggleFloatFunctionality() {}
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,11 @@ class _DepositeModeState extends State<DepositeMode>
       backgroundColor: appColors.Surface94,
       appBar: TitleBar(
         title: widget.roomInfo["roomTitle"],
-        actions: [PopupMenu()],
+        actions: [
+          PopupMenu(
+            room: widget.roomInfo,
+          )
+        ],
       ),
       body: UI(context),
       floatingActionButton: FloatingActionButton(
@@ -120,7 +124,7 @@ class _DepositeModeState extends State<DepositeMode>
                   ),
                 ),
                 Expanded(
-                  child: TabBarView(children: [
+                  child: TabBarView(controller: _tabController, children: [
                     MemberTab(room: widget.roomInfo),
                     PollTab(),
                   ]),

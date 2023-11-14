@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/enums.dart';
 import 'package:splitbliss/streams/stream_deposit.dart';
+import 'package:splitbliss/streams/stream_no_deposit.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
-
-import '../screens/nodeposit_user.dart';
 
 class StreamRoom extends StatefulWidget {
   const StreamRoom({super.key});
@@ -75,7 +74,7 @@ class _StreamRoomState extends State<StreamRoom> {
                         return StreamDeposite(roomId: rooms[index]);
                       } else if (data['typeOfMode'] ==
                           RoomType.no_deposit_mode.name) {
-                        return NoDepositeRoom();
+                        return StreamNoDeposit(roomId: rooms[index]);
                       } else {
                         return StreamRoom();
                       }

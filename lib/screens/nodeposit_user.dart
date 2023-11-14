@@ -11,7 +11,8 @@ import 'package:splitbliss/widgets/title_bar.dart';
 import './add_payment.dart';
 
 class NoDepositeRoom extends StatelessWidget {
-  const NoDepositeRoom({super.key});
+  const NoDepositeRoom({super.key, required this.roomInfo});
+  final Map<String, dynamic> roomInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,11 @@ class NoDepositeRoom extends StatelessWidget {
       backgroundColor: Color(0xFFF0F0F0),
       appBar: TitleBar(
         title: "Gear Five",
-        actions: [PopupMenu()],
+        actions: [
+          PopupMenu(
+            room: roomInfo,
+          )
+        ],
       ),
       body: Body(),
       floatingActionButton: FloatingActionButton(

@@ -108,7 +108,8 @@ class _BodyState extends State<Body> {
       'balance': 0,
       'getMoney': 0,
       'email': email,
-      'memberId': uid
+      'memberId': uid,
+      'displayName': userName
     });
     //create roomId
     var roomId = uuid.v4();
@@ -186,7 +187,8 @@ class _BodyState extends State<Body> {
         'balance': 0,
         'getMoney': 0,
         'email': userData['email'],
-        'memberId': userData['userId']
+        'memberId': userData['userId'],
+        'userName': userData['displayName']
       });
     });
     searchController.clear();

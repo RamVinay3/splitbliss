@@ -9,7 +9,8 @@ import 'package:splitbliss/widgets/menu_item.dart';
 import 'package:splitbliss/widgets/svg.dart';
 
 class PopupMenu extends StatelessWidget {
-  const PopupMenu({super.key});
+  const PopupMenu({super.key, required this.room});
+  final Map<String, dynamic> room;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,9 @@ class PopupMenu extends StatelessWidget {
         PopupMenuItem(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return SettingsScreen();
+              return SettingsScreen(
+                room: room,
+              );
             }));
           },
           child: MenuItem(path: "lib/svg/settingsIcon.svg", title: "Settings"),

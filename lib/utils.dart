@@ -12,6 +12,7 @@ late String firstName;
 late String secondName;
 late String? email;
 late String? uid;
+late String? displayName;
 String userName = ''; //use for later variables
 Color userColor = Colors.black;
 // firestore references
@@ -31,6 +32,7 @@ void getCurrentUserDetails() {
   secondName = (parts.length >= 2) ? parts[1] : '';
   email = currentUser!.email;
   uid = currentUser!.uid;
+  displayName = currentUser!.displayName!;
 }
 
 String getCharachters() {
