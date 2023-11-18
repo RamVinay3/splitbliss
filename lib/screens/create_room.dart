@@ -129,6 +129,11 @@ class _BodyState extends State<Body> {
       'transactions': [],
       'remainders': [],
       'polls': [],
+      'pending': [],
+      'foodPlanner': false,
+      'essentials': false,
+      //pending and remainders have requested by attribute
+      // so it can be easily accessible
     };
     if (selectedOption == 'Deposite Mode') {
       obj['individualMoney'] = moneyController.text;
