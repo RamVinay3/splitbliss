@@ -6,3 +6,5 @@ enum Type {
 }
 
 enum RoomType { deposit_mode, no_deposit_mode }
+
+enum Category { food, work, emi, travel, lend, groceries, movies }

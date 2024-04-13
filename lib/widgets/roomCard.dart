@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/screens/add_payment.dart';
+import 'package:splitbliss/screens/user_space.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/horizontal_space.dart';
@@ -88,16 +89,23 @@ class Personal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextRoboto(title: name, weight: FontWeight.w500),
-        TextRoboto(
-          title: username,
-          fontsize: 12,
-          color: appColors.greyPlaceHolder,
-        )
-      ],
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+          return UserSpace();
+        }));
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextRoboto(title: name, weight: FontWeight.w500),
+          TextRoboto(
+            title: username,
+            fontsize: 12,
+            color: appColors.greyPlaceHolder,
+          )
+        ],
+      ),
     );
   }
 }

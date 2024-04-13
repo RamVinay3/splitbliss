@@ -67,7 +67,8 @@ class _DepositeModeState extends State<DepositeMode>
     );
   }
 
-  ListView UI(BuildContext context) {
+  ListView
+   UI(BuildContext context) {
     return ListView(
       children: [
         ElevatedContainer(
