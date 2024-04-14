@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
+import 'package:splitbliss/enums.dart';
+import 'package:splitbliss/models/expense.dart';
 import 'package:uuid/uuid.dart';
 
 var uuid = Uuid();
@@ -16,7 +18,6 @@ late String? displayName;
 String userName = ''; //use for later variables
 Color userColor = Colors.black;
 // firestore references
-
 CollectionReference userNameDocs =
     FirebaseFirestore.instance.collection('userNames');
 
@@ -24,6 +25,51 @@ CollectionReference userUidDocs =
     FirebaseFirestore.instance.collection('userDetails');
 
 CollectionReference roomsRef = FirebaseFirestore.instance.collection('rooms');
+//expenses individual related
+
+String currentYear = DateTime.now().year.toString();
+String currentMonth = getMonthName(DateTime.now().month);
+List<Expense> expenses = [];
+//functions
+Category transformCategory(String s) {
+  if (s == 'food') return Category.food;
+  if (s == 'emi') return Category.emi;
+  if (s == 'groceries') return Category.groceries;
+  if (s == 'movies') return Category.movies;
+  if (s == 'travel') return Category.travel;
+  if (s == 'work') return Category.work;
+  if (s == 'lend') return Category.lend;
+  return Category.travel;
+}
+
+DateTime getLocalTime(Timestamp t) {
+  // Convert Timestamp to DateTime
+  DateTime dateTime = t.toDate();
+
+  // Extract the date portion
+  DateTime dateOnly = DateTime(dateTime.year, dateTime.month, dateTime.day);
+  return dateOnly;
+  // Print the date in a normal format
+  // print(dateOnly); // Output: 2024-04-14 00:00:00.000
+}
+
+String getMonthName(int m) {
+  List<String> month = [
+    '',
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ];
+  return month[m];
+}
 
 void getCurrentUserDetails() {
   currentUser = FirebaseAuth.instance.currentUser;

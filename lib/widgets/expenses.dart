@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/models/expense.dart';
+import 'package:splitbliss/streams/stream_personal_expenses.dart';
+import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/charts/chart.dart';
-import 'package:splitbliss/widgets/expenses_list.dart';
 import 'package:splitbliss/widgets/new_expense.dart';
 
 class Expenses extends StatefulWidget {
@@ -13,11 +15,64 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  Widget mainContent = const Center(
-    child: Text('no expenses found,add some'),
-  );
-  final List<Expense> expenses = [];
+  @override
+  void initState() {
+    super.initState();
+    // getIndividualExpenses(currentMonth, currentYear);
+    expenses.clear();
+    var collectExpenses = FirebaseFirestore.instance
+        .collection('individual')
+        .doc(userName)
+        .collection(currentYear)
+        .doc('expenses')
+        .collection(currentMonth);
+    collectExpenses.get().then((QuerySnapshot querySnapshot) {
+      // Iterate over the documents
+      querySnapshot.docs.forEach((DocumentSnapshot documentSnapshot) {
+        // Access data of each document
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        Expense e = new Expense(
+            category: transformCategory(data['category']),
+            title: data['reason'],
+            amount: data['amount'],
+            date: getLocalTime(data['date']));
+        setState(() {
+          expenses.add(e);
+        });
+        print(e);
+      });
+    }).catchError((error) {
+      // Handle any errors that occur
+      print("Something went wrong fetching personal expenses");
+    });
+  }
+
   void addExpenses(Expense e) {
+    Map<String, dynamic> obj = {
+      'amount': e.amount,
+      'category': e.category.name,
+      'date': e.date,
+      'reason': e.title,
+      'id': e.id
+    };
+    print(e.date.month);
+    print(e.date.year);
+    String month = getMonthName(e.date.month);
+
+    var collected = FirebaseFirestore.instance
+        .collection('individual')
+        .doc(userName)
+        .collection(e.date.year.toString())
+        .doc('expenses')
+        .collection(month)
+        .doc(e.id)
+        .set(obj);
+    collected.then((value) {
+      Message(context, message: 'Expense added succesfully');
+    }).catchError((error) {
+      Message(context, message: 'Something wrong with network');
+    });
     setState(() {
       expenses.add(e);
     });
@@ -59,10 +114,10 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-    if (expenses.isNotEmpty) {
-      mainContent = ExpensesList(expense: expenses, onSlide: removeExpense);
-    }
+    // final height = MediaQuery.of(context).size.height;
+    // if (expenses.isNotEmpty) {
+    //   mainContent = ExpensesList(expense: expenses, onSlide: removeExpense);
+    // }
     return Scaffold(
         appBar: AppBar(
           title: const Text('ExpenseTracker'),
@@ -80,7 +135,7 @@ class _ExpensesState extends State<Expenses> {
                   //so flutter won't know how to display just get it done
                   //using expanded
                   Expanded(
-                    child: mainContent,
+                    child: ExpensesList(onSlide: removeExpense),
                   )
                 ],
               )
@@ -92,7 +147,7 @@ class _ExpensesState extends State<Expenses> {
                   //so flutter won't know how to display just get it done
                   //using expanded
                   Expanded(
-                    child: mainContent,
+                    child: ExpensesList(onSlide: removeExpense),
                   )
                 ],
               ));
