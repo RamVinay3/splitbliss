@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
+import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/google_auth.dart';
 import 'package:splitbliss/widgets/svg.dart';
 import 'package:splitbliss/widgets/text_inter.dart';
@@ -84,6 +86,11 @@ class ProfileOptions extends StatelessWidget {
                 // Do something with the feedback, for example, send it to an API
                 String feedback = feedbackController.text;
                 print('Feedback: $feedback');
+                FirebaseFirestore.instance
+                    .collection('feedback')
+                    .doc()
+                    .set({'feedback': feedback, 'userName': userName});
+
                 Navigator.of(context).pop();
               },
               child: Text('Submit'),

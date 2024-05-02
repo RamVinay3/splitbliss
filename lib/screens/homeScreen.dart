@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/screens/create_room.dart';
+import 'package:splitbliss/screens/user_space.dart';
 import 'package:splitbliss/streams/stream_rooms.dart';
 import 'package:splitbliss/widgets/roomCard.dart';
 import 'package:splitbliss/widgets/text_roboto.dart';
@@ -38,7 +39,14 @@ class _HomeState extends State<Home> {
                   color: appColors.onSurfaceText,
                   weight: FontWeight.w700),
               VerticalSpacer(space: 0.023 * height),
-              RoomCard(personal: true),
+              InkWell(
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) {
+                      return UserSpace();
+                    }));
+                  },
+                  child: RoomCard(personal: true)),
               VerticalSpacer(space: 0.012 * height),
               TextRoboto(
                 title: 'Rooms',

@@ -70,11 +70,14 @@ class _ExpensesState extends State<Expenses> {
         .set(obj);
     collected.then((value) {
       Message(context, message: 'Expense added succesfully');
+
+      if (currentMonth == month) {
+        setState(() {
+          expenses.add(e);
+        });
+      }
     }).catchError((error) {
       Message(context, message: 'Something wrong with network');
-    });
-    setState(() {
-      expenses.add(e);
     });
   }
 
@@ -120,7 +123,7 @@ class _ExpensesState extends State<Expenses> {
     // }
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ExpenseTracker'),
+          title: const Text('Track your expense'),
           actions: [
             IconButton(
                 onPressed: openAddExpenseModel, icon: const Icon(Icons.add))

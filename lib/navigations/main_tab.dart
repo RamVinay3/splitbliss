@@ -28,14 +28,16 @@ class _Tabs extends ConsumerState<MainTabNavigator> {
       'displayName': name,
       'userName': username,
       'color': background.toString(),
-      'email': currentUser!.email
+      'email': currentUser!.email,
+      'rooms': []
     };
     final Map<String, dynamic> obj2 = {
       'displayName': name,
       'userName': username,
       'color': background.toString(),
       'email': currentUser!.email,
-      'userId': currentUser!.uid
+      'userId': currentUser!.uid,
+      'rooms': []
     };
     try {
       userUidDocs.doc(currentUser!.uid).set(obj);
@@ -46,6 +48,7 @@ class _Tabs extends ConsumerState<MainTabNavigator> {
     } catch (error) {
       print(error);
     }
+    getUserInfo();
   }
 
   void selectPage(index) {

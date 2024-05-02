@@ -140,7 +140,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 5.0),
                           child: MemberCard(
                             name: user['displayName'],
-                            uname: "@${user['memberName']}",
+                            uname: "@${user['userName']}",
                             profile:
                                 getCustomisedCharacters(user['displayName']),
                             color: user['color'],

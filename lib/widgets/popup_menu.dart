@@ -22,7 +22,9 @@ class PopupMenu extends StatelessWidget {
         PopupMenuItem(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return AddPayment();
+              return AddPayment(
+                roomInfo: room,
+              );
             }));
           },
           child: MenuItem(

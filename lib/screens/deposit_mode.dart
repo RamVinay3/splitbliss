@@ -57,7 +57,9 @@ class _DepositeModeState extends State<DepositeMode>
         onPressed: () {
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
             if (_tabController.index == 0) {
-              return AddPayment();
+              return AddPayment(
+                roomInfo: widget.roomInfo,
+              );
             } else {
               return AddPoll();
             }
@@ -67,8 +69,7 @@ class _DepositeModeState extends State<DepositeMode>
     );
   }
 
-  ListView
-   UI(BuildContext context) {
+  ListView UI(BuildContext context) {
     return ListView(
       children: [
         ElevatedContainer(

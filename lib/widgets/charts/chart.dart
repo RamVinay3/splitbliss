@@ -37,6 +37,7 @@ class Chart extends StatelessWidget {
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     //This mediaquery is used to get phone settings
+    print("being rebuild");
     return Container(
       margin: const EdgeInsets.all(16),
       padding: const EdgeInsets.symmetric(

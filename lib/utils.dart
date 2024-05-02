@@ -60,6 +60,7 @@ String getMonthName(int m) {
     'Feb',
     'Mar',
     'Apr',
+    'May',
     'Jun',
     'Jul',
     'Aug',
@@ -118,17 +119,19 @@ void Message(BuildContext context, {String message = ''}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
 }
 
-void getUserInfo() {
+void getUserInfo() async {
   print("userinfo is getting fetched");
   try {
-    FirebaseFirestore.instance
+    var userData = await FirebaseFirestore.instance
         .collection('userDetails')
         .doc(currentUser!.uid)
-        .get()
-        .then((value) {
-      userName = value.data()!['userName'];
-      userColor = transformColor(value.data()!['color']);
-    });
+        .get();
+    final docs = await userUidDocs.doc(currentUser!.uid).get();
+    if (!docs.exists) {
+      return;
+    }
+    userName = userData.data()!['userName'];
+    userColor = transformColor(userData.data()!['color']);
   } catch (error) {
     print(error);
   }

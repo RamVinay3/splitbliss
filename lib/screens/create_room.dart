@@ -103,13 +103,13 @@ class _BodyState extends State<Body> {
     });
     //add the creator (self)
     users.add({
-      'memberName': userName,
+      'userName': userName,
       'color': userColor.toString(),
       'balance': 0,
       'getMoney': 0,
       'email': email,
       'memberId': uid,
-      'displayName': userName
+      'displayName': displayName
     });
     //create roomId
     var roomId = uuid.v4();
@@ -142,7 +142,7 @@ class _BodyState extends State<Body> {
     //add group into every member.
 
     for (var user in users) {
-      await userNameDocs.doc(user['memberName']).update({
+      await userNameDocs.doc(user['userName']).update({
         'rooms': FieldValue.arrayUnion([roomId]),
       });
       await userUidDocs.doc(user['memberId']).update({
@@ -187,13 +187,13 @@ class _BodyState extends State<Body> {
 
     setState(() {
       users.add({
-        'memberName': value,
+        'userName': value,
         'color': userData!['color'],
         'balance': 0,
         'getMoney': 0,
         'email': userData['email'],
         'memberId': userData['userId'],
-        'userName': userData['displayName']
+        'displayName': userData['displayName']
       });
     });
     searchController.clear();
@@ -253,7 +253,7 @@ class _BodyState extends State<Body> {
                 children: [
                   for (var people in users)
                     UserCard(
-                        user: people['memberName'],
+                        user: people['userName'],
                         color: people['color'] is Color
                             ? people['color']
                             : transformColor(people['color']).withAlpha(100),

@@ -211,7 +211,7 @@ class _NoDepositeRoomState extends State<NoDepositeRoom> {
         onPressed: () {
           print("Add Payment");
           Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-            return AddPayment();
+            return AddPayment(roomInfo: widget.roomInfo);
           }));
         },
       ),

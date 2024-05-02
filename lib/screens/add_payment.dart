@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, must_be_immutable
 
 import 'package:flutter/material.dart';
-import 'package:random_color/random_color.dart';
 import 'package:splitbliss/screens/payment_history.dart';
+import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/radio_button.dart';
 import 'package:splitbliss/widgets/text_inter.dart';
 
@@ -12,7 +12,8 @@ import '../widgets/input_container.dart';
 import '../widgets/title_bar.dart';
 
 class AddPayment extends StatelessWidget {
-  const AddPayment({super.key});
+  const AddPayment({super.key, required this.roomInfo});
+  final Map<String, dynamic> roomInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +21,14 @@ class AddPayment extends StatelessWidget {
       backgroundColor: appColors.Surface94,
       resizeToAvoidBottomInset: false,
       appBar: TitleBar(title: "Add Payment"),
-      body: Body(),
+      body: Body(roomInfo: roomInfo),
     );
   }
 }
 
 class Body extends StatefulWidget {
-  const Body({super.key});
+  const Body({super.key, required this.roomInfo});
+  final Map<String, dynamic> roomInfo;
 
   @override
   State<Body> createState() => _BodyState();
@@ -41,13 +43,7 @@ List<String> users = [];
 
 class _BodyState extends State<Body> {
   List<Map<String, dynamic>> members = [];
-  List<String> persons = [
-    "vinay3",
-    "chiru",
-    "siva23",
-    "samuel12",
-    "nagasai234"
-  ];
+  List<String> persons = [];
   List<String> inPayment = [];
   String selectedOption = options[0];
   TextEditingController amountController = TextEditingController();
@@ -64,14 +60,15 @@ class _BodyState extends State<Body> {
   @override
   void initState() {
     super.initState();
-
-    for (int i = 0; i < 5; i++) {
-      RandomColor _randomColor = RandomColor();
-      Color backgroundColor = _randomColor.randomColor(
-        colorBrightness: ColorBrightness.dark,
-      );
-      members
-          .add({'name': persons[i], 'color': backgroundColor.withAlpha(200)});
+    List<dynamic> membersInfo = widget.roomInfo["members"];
+    for (int i = 0; i < membersInfo.length; i++) {
+      setState(() {
+        persons.add(membersInfo[i]["memberName"]);
+      });
+      members.add({
+        'name': membersInfo[i]["memberName"],
+        'color': transformColor(membersInfo[i]["color"])
+      });
     }
   }
 
@@ -193,6 +190,8 @@ class ToggleMembers extends StatelessWidget {
         child: TextInter(
           title: user,
           fontsize: 14,
+          color: (has) ? Colors.white : Colors.black,
+          weight: FontWeight.w500,
         ),
       ),
     );
