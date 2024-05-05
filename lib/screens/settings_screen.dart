@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:splitbliss/enums.dart';
 import 'package:splitbliss/screens/essentials.dart';
 import 'package:splitbliss/screens/food_planner.dart';
+import 'package:splitbliss/screens/homeScreen.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/member_card.dart';
@@ -55,6 +56,132 @@ class _SettingsScreenState extends State<SettingsScreen> {
         essential = value;
       });
     });
+  }
+
+  void removingUsersFromRoom(String user) async {
+    var userRef = userNameDocs.doc(user);
+
+    var doc = await userRef.get();
+    var userInfo = doc.data() as Map<String, dynamic>;
+    var userId = userInfo["userId"];
+    var userDetailsRef = userUidDocs.doc(userId);
+
+    if (userInfo["rooms"] is List) {
+      print("docs is geneated");
+      List<dynamic> updatedArray = List.from(userInfo['rooms']);
+      updatedArray.removeWhere((item) => item == widget.room["roomId"]);
+
+      // Updating the rooms in users
+      userRef.update({'rooms': updatedArray});
+      userDetailsRef.update({'rooms': updatedArray});
+      // Updating the rooms in users
+    }
+  }
+
+  void exitingGroup(String user, String roomId, String admin) async {
+    //checking the room members and  updating it.
+    removingUsersFromRoom(user);
+    var roomRef = FirebaseFirestore.instance.collection('rooms').doc(roomId);
+    var roomDoc = await roomRef.get();
+    var updateRoomMembers = List.from(roomDoc["members"]);
+    updateRoomMembers.removeWhere((member) => member["userName"] == userName);
+    if (updateRoomMembers.length == 0) {
+      roomRef.delete();
+    } else if (admin == user) {
+      roomRef.update(
+          {'members': updateRoomMembers, 'admin': updateRoomMembers[0]});
+    } else {
+      roomRef.update({'members': updateRoomMembers});
+    }
+  }
+
+  void _deleteGroup(BuildContext context, String roomId, String admin) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            content: Text('Are you sure, you want to delete the group?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(
+                  'Cancel',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  var roomRef = FirebaseFirestore.instance
+                      .collection("rooms")
+                      .doc(roomId);
+                  var members = widget.room["members"] as List;
+                  if (userName == admin) {
+                    //Notification will be send incase deleted group.
+                    for (int i = 0; i < members.length; i++) {
+                      removingUsersFromRoom(members[i]["userName"]);
+                    }
+                    roomRef.delete();
+
+                    Navigator.of(context)
+                        .pushReplacement(MaterialPageRoute(builder: (context) {
+                      return Home();
+                    })).then((_) {
+                      Navigator.popUntil(context, (route) => route.isFirst);
+                    });
+                  } else {
+                    Navigator.of(context).pop();
+                    Message(context,
+                        message: 'Only Admins can Delete the Room');
+                  }
+                },
+                child: Text(
+                  'Delete',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  void _exitGroup(BuildContext context, String roomId, String admin) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(
+            'Are you sure ,you want to exit?',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.black),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                exitingGroup(userName, roomId, admin);
+                Navigator.of(context)
+                    .pushReplacement(MaterialPageRoute(builder: (context) {
+                  return Home();
+                }));
+              },
+              child: Text(
+                'Exit',
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -227,6 +354,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   child: Column(
                     children: [
                       GestureDetector(
+                        onTap: () {
+                          _exitGroup(context, widget.room["roomId"],
+                              widget.room['admin']);
+                        },
                         child: Row(
                           children: [
                             SizedBox(
@@ -237,7 +368,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               width: 15,
                             ),
                             Text(
-                              "Exit Group",
+                              "Exit Room",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
@@ -251,6 +382,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         height: 15,
                       ),
                       GestureDetector(
+                        onTap: () {
+                          _deleteGroup(context, widget.room["roomId"],
+                              widget.room["admin"]);
+                        },
                         child: Row(
                           children: [
                             SizedBox(
@@ -261,7 +396,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               width: 15,
                             ),
                             Text(
-                              "Delete Group",
+                              "Delete Room",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,
