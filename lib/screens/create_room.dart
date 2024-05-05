@@ -132,6 +132,11 @@ class _BodyState extends State<Body> {
       'pending': [],
       'foodPlanner': false,
       'essentials': false,
+      'addDishes': false,
+      'essentialContent': '',
+      'foodPlannerContent': [],
+      'dishesContent': [], //items need to be added
+
       //pending and remainders have requested by attribute
       // so it can be easily accessible
     };

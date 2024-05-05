@@ -63,10 +63,10 @@ class _BodyState extends State<Body> {
     List<dynamic> membersInfo = widget.roomInfo["members"];
     for (int i = 0; i < membersInfo.length; i++) {
       setState(() {
-        persons.add(membersInfo[i]["memberName"]);
+        persons.add(membersInfo[i]["userName"]);
       });
       members.add({
-        'name': membersInfo[i]["memberName"],
+        'name': membersInfo[i]["userName"],
         'color': transformColor(membersInfo[i]["color"])
       });
     }

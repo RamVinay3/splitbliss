@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/enums.dart';
+import 'package:splitbliss/screens/essentials.dart';
+import 'package:splitbliss/screens/food_planner.dart';
 import 'package:splitbliss/utils.dart';
 import 'package:splitbliss/widgets/history_profile.dart';
 import 'package:splitbliss/widgets/member_card.dart';
@@ -23,15 +26,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   bool essential = false;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    foodPlanner = widget.room["foodPlanner"];
+    essential = widget.room["essentials"];
+  }
+
   void setFoodPlanner(bool value) {
-    setState(() {
-      foodPlanner = value;
+    print(widget.room["roomId"]);
+    FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.room["roomId"])
+        .update({'foodPlanner': value}).then((v) {
+      setState(() {
+        foodPlanner = value;
+      });
     });
   }
 
   void setEssential(bool value) {
-    setState(() {
-      essential = value;
+    FirebaseFirestore.instance
+        .collection('rooms')
+        .doc(widget.room["roomId"])
+        .update({'essentials': value}).then((v) {
+      setState(() {
+        essential = value;
+      });
     });
   }
 
@@ -73,8 +95,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SizedBox(
                 height: 20,
               ),
-              if ((admin || foodPlanner || essential) &&
-                  widget.room['typeOfMode'] == RoomType.deposit_mode.name)
+              if ((widget.room['typeOfMode'] == RoomType.deposit_mode.name ||
+                  widget.room['typeOfMode'] == RoomType.no_deposit_mode.name))
                 Material(
                   borderRadius: BorderRadius.circular(10),
                   elevation: 5,
@@ -84,26 +106,69 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Column(
                         children: [
-                          PageCard(
-                            path: "lib/svg/foodIcon.svg",
-                            title: "Food Planner",
-                            onChanged: setFoodPlanner,
-                            value: foodPlanner,
+                          if (!admin) VerticalSpacer(space: 15),
+                          InkWell(
+                            onTap: () {
+                              if (!admin) {
+                                if (foodPlanner) {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return FoodPlanner();
+                                  }));
+                                } else {
+                                  Message(context,
+                                      message:
+                                          'Admin restricted the permissions');
+                                }
+                              }
+                            },
+                            child: PageCard(
+                              path: "lib/svg/foodIcon.svg",
+                              title: "Food Planner",
+                              onChanged: setFoodPlanner,
+                              value: foodPlanner,
+                              room: widget.room,
+                            ),
                           ),
-                          PageCard(
-                            path: "lib/svg/essentialIcon.svg",
-                            title: "Essentials",
-                            onChanged: setEssential,
-                            value: essential,
+                          if (!admin) VerticalSpacer(space: 15),
+                          InkWell(
+                            onTap: () {
+                              if (!admin) {
+                                if (foodPlanner) {
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute(builder: (context) {
+                                    return Essentials(
+                                      essentialContent:
+                                          widget.room["essentialContent"],
+                                      roomId: widget.room["roomId"],
+                                    );
+                                  }));
+                                } else {
+                                  Message(context,
+                                      message:
+                                          'Admin restricted the permissions');
+                                }
+                              }
+                            },
+                            child: PageCard(
+                              path: "lib/svg/essentialIcon.svg",
+                              title: "Essentials",
+                              onChanged: setEssential,
+                              value: essential,
+                              room: widget.room,
+                            ),
                           ),
+                          if (!admin) VerticalSpacer(space: 15),
                         ],
                       )),
                 ),
               SizedBox(
-                height:
-                    (widget.room['typeOfMode'] == RoomType.no_deposit_mode.name)
-                        ? 0
-                        : 20,
+                height: (widget.room['typeOfMode'] ==
+                            RoomType.no_deposit_mode.name ||
+                        widget.room['typeOfMode'] ==
+                            RoomType.no_deposit_mode.name)
+                    ? 20
+                    : 0,
               ),
               Material(
                 borderRadius: BorderRadius.circular(10),

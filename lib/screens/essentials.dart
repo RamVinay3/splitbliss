@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:splitbliss/colors.dart';
 import 'package:splitbliss/widgets/title_bar.dart';
 
 class Essentials extends StatefulWidget {
-  const Essentials({super.key});
+  const Essentials(
+      {super.key, required this.roomId, required this.essentialContent});
+
+  final String roomId;
+  final String essentialContent;
 
   @override
   State<Essentials> createState() => _EssentialsState();
@@ -17,9 +22,28 @@ class _EssentialsState extends State<Essentials> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    essentialController.text = widget.essentialContent;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: TitleBar(title: 'Essentials'),
+      appBar: TitleBar(title: 'Essentials', actions: [
+        TextButton(
+            onPressed: () {
+              FirebaseFirestore.instance
+                  .collection('rooms')
+                  .doc(widget.roomId)
+                  .update({'essentialContent': essentialController.text});
+            },
+            child: Text(
+              'SAVE',
+              style: TextStyle(color: appColors.onPrimary),
+            ))
+      ]),
       body: Container(
         // width: double.infinity,
         // height: double.infinity,
